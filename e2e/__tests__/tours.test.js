@@ -1,15 +1,18 @@
 jest.mock('../../lib/services/maps-api');
+jest.mock('../../lib/services/weather-api');
 require('dotenv').config();
 const request = require('../request');
 const db = require('../db');
 const { matchMongoId } = require('../match-helpers');
 const getLocation = require('../../lib/services/maps-api');
-// const getForecast = require('../../lib/services/weather-api');
+const getForecast = require('../../lib/services/weather-api');
 
-// getForecast.mockResolvedValue({
-//   latitude: 38,
-//   longitude: -130
-// });
+getForecast.mockResolvedValue([
+  {
+    time: new Date('2019-10-02T09:00:00.000Z'),
+    forecast: 'Partly cloudy throughout the day.'
+  }
+]);
 
 getLocation.mockResolvedValue({
   latitude: 38,
@@ -51,13 +54,13 @@ describe('locations api', () => {
           "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
           "activities": Array [
             Object {
-              "_id": "5d951a2553bfe9e243368f98",
+              "_id": "5d952fe3b27d91ea6dbe9aed",
               "activity1": "Tower of Pisa",
               "activity2": "The Vatican",
               "activity3": "Tower of Pizza",
             },
           ],
-          "launchDate": "2019-10-02T21:44:05.592Z",
+          "launchDate": "2019-10-02T23:16:50.837Z",
           "stops": Array [],
           "title": "italy trip",
         }
@@ -89,6 +92,10 @@ describe('locations api', () => {
           "location": Object {
             "latitude": 38,
             "longitude": -130,
+          },
+          "weather": Object {
+            "forecast": "Partly cloudy throughout the day.",
+            "time": "2019-10-02T09:00:00.000Z",
           },
         }
       `
