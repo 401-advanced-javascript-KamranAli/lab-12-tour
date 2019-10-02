@@ -1,60 +1,52 @@
 const request = require('../request');
 const db = require('../db');
-const { matchMongoId } = require('../match-helpers');
-// const getLocation = require('../../lib/services/map-api');
 
-describe('locations api', () => {
+describe('stops api', () => {
   beforeEach(() => {
-    return db.dropCollection('locations');
+    return Promise.all([
+      db.dropCollection('stops'),
+      db.dropCollection('tours')
+    ]);
   });
+
   const firstTours = {
-    title: 'italy trip',
+    title: 'italy trip',
     activities: [
       {
-        activity1: 'Tower of Pisa',
-        activity2: 'The Vatican',
-        activity3: 'Tower of Pizza'
+        activity1: 'Tower of Pisa',
+        activity2: 'The Vatican',
+        activity3: 'Tower of Pizza'
       }
-    ],
-    launchDate: new Date(),
-    stops: [{}]
+    ]
   };
 
-  function postTours(tours) {
+  const testStop = [{}];
+
+  function postStop(stops) {
     return request
-      .post('/api/tours')
-      .send(tours)
+      .post('/api/stops')
+      .send(firstTours)
       .expect(200)
+      .then(({ body }) => {
+        stops[0] = body._id;
+        return request
+          .post('/api/stops')
+          .send(testStop)
+          .expect(200);
+      })
       .then(({ body }) => body);
   }
 
-  it('add a tours, gets geo tours', () => {
-    return postTours(firstTours).then(tour => {
-      expect(tour).toMatchInlineSnapshot(
-        matchMongoId,
+  it('posts a stop ', () => {
+    return postStop(testStop).then(stop => {
+      expect(stop).toMatchInlineSnapshot(
+        {
+          _id: expect.any(String),
+          stops: [expect.any(Object)]
+        },
 
-        `
-        Object {
-          "__v": 0,
-          "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
-          "activities": Array [
-            Object {
-              "_id": "5d93f29505a70ab4077b65ab",
-              "activity1": "Tower of Pisa",
-              "activity2": "The Vatican",
-              "activity3": "Tower of Pizza",
-            },
-          ],
-          "launchDate": "2019-10-02T00:43:01.267Z",
-          "stops": Array [
-            Object {
-              "_id": "5d93f29505a70ab4077b65ac",
-            },
-          ],
-          "title": "italy trip",
-        }
-      `
       );
     });
   });
+
 });
