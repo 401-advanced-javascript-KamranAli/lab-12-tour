@@ -7,7 +7,7 @@
 
 ### Links and Resources
 * [submission PR](https://github.com/401-advanced-javascript-KamranAli/lab-12-tour/pull/1)
-* [travis](https://travis-ci.com/401-advanced-javascript-KamranAli/lab-06-mongoose/builds/128954975)
+* [travis](https://travis-ci.com/401-advanced-javascript-KamranAli/lab-12-tour/builds/130275569)
 * [heroku deploy](https://thawing-brook-00054.herokuapp.com/ )
 #### Documentation
 * (Server assignments)

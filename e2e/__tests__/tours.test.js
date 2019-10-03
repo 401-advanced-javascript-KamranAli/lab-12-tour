@@ -25,13 +25,7 @@ describe('locations api', () => {
   });
   const firstTours = {
     title: 'italy trip',
-    activities: [
-      {
-        activity1: 'Tower of Pisa',
-        activity2: 'The Vatican',
-        activity3: 'Tower of Pizza'
-      }
-    ],
+    activities: ['Tower of Pisa', 'The Vatican', 'Tower of Pizza'],
     stops: []
   };
 
@@ -53,12 +47,9 @@ describe('locations api', () => {
           "__v": 0,
           "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
           "activities": Array [
-            Object {
-              "_id": "5d9619b382d48f039945f50c",
-              "activity1": "Tower of Pisa",
-              "activity2": "The Vatican",
-              "activity3": "Tower of Pizza",
-            },
+            "Tower of Pisa",
+            "The Vatican",
+            "Tower of Pizza",
           ],
           "launchDate": Any<String>,
           "stops": Array [],
