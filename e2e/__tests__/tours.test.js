@@ -46,7 +46,7 @@ describe('locations api', () => {
   it('add a tours, gets geo tours', () => {
     return postTours(firstTours).then(tour => {
       expect(tour).toMatchInlineSnapshot(
-        matchMongoId, matchIdAndDate,
+        matchIdAndDate,
 
         `
         Object {
@@ -54,13 +54,13 @@ describe('locations api', () => {
           "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
           "activities": Array [
             Object {
-              "_id": "5d953e7b6386cef18cf74ab4",
+              "_id": "5d9618b419d3c50317d41ac9",
               "activity1": "Tower of Pisa",
               "activity2": "The Vatican",
               "activity3": "Tower of Pizza",
             },
           ],
-          "launchDate": "2019-10-03T00:19:07.257Z",
+          "launchDate": Any<String>,
           "stops": Array [],
           "title": "italy trip",
         }
@@ -84,7 +84,7 @@ describe('locations api', () => {
   it('adds a stop to the tour', () => {
     return postTourWithStop(firstTours, stop1).then(([, stops]) => {
       expect(stops[0]).toMatchInlineSnapshot(
-        matchMongoId, matchIdAndDate,
+        matchMongoId,
 
         `
         Object {
@@ -95,7 +95,7 @@ describe('locations api', () => {
           },
           "weather": Object {
             "forecast": "Partly cloudy throughout the day.",
-            "time": "2019-10-02T09:00:00.000Z",
+            "time": Any<String>,
           },
         }
       `
