@@ -3,7 +3,7 @@ jest.mock('../../lib/services/weather-api');
 require('dotenv').config();
 const request = require('../request');
 const db = require('../db');
-const { matchMongoId } = require('../match-helpers');
+const { matchMongoId, matchIdAndDate } = require('../match-helpers');
 const getLocation = require('../../lib/services/maps-api');
 const getForecast = require('../../lib/services/weather-api');
 
@@ -46,7 +46,7 @@ describe('locations api', () => {
   it('add a tours, gets geo tours', () => {
     return postTours(firstTours).then(tour => {
       expect(tour).toMatchInlineSnapshot(
-        matchMongoId,
+        matchMongoId, matchIdAndDate,
 
         `
         Object {
@@ -84,7 +84,7 @@ describe('locations api', () => {
   it('adds a stop to the tour', () => {
     return postTourWithStop(firstTours, stop1).then(([, stops]) => {
       expect(stops[0]).toMatchInlineSnapshot(
-        matchMongoId,
+        matchMongoId, matchIdAndDate,
 
         `
         Object {
