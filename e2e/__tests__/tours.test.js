@@ -54,13 +54,13 @@ describe('locations api', () => {
           "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
           "activities": Array [
             Object {
-              "_id": "5d952fe3b27d91ea6dbe9aed",
+              "_id": "5d953e7b6386cef18cf74ab4",
               "activity1": "Tower of Pisa",
               "activity2": "The Vatican",
               "activity3": "Tower of Pizza",
             },
           ],
-          "launchDate": "2019-10-02T23:16:50.837Z",
+          "launchDate": "2019-10-03T00:19:07.257Z",
           "stops": Array [],
           "title": "italy trip",
         }
@@ -101,5 +101,17 @@ describe('locations api', () => {
       `
       );
     });
+  });
+
+  it('removes a show', () => {
+    return postTourWithStop(firstTours, stop1)
+      .then(([tour, stops]) => {
+        return request
+          .delete(`/api/tours/${tour._id}/stops/${stops[0]._id}`)
+          .expect(200);
+      })
+      .then(({ body }) => {
+        expect(body.length).toBe(0);
+      });
   });
 });
