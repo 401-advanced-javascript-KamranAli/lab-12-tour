@@ -54,7 +54,7 @@ describe('locations api', () => {
           "_id": StringMatching /\\^\\[a-f\\\\d\\]\\{24\\}\\$/i,
           "activities": Array [
             Object {
-              "_id": "5d9618b419d3c50317d41ac9",
+              "_id": "5d9619b382d48f039945f50c",
               "activity1": "Tower of Pisa",
               "activity2": "The Vatican",
               "activity3": "Tower of Pizza",
